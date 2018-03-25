@@ -7,17 +7,38 @@ import Pricing from './Pricing.js';
 
 import './App.css';
 
+
+function renderLinkAndHightlightActive(route, text) {
+  return (
+    <Route path={ route }
+          children={
+            ({ match, history, location }) => {
+              const activeClass = (!!match && match.isExact)
+                ? 'nav-link--active'
+                : 'nav-link--normal';
+
+              return (
+                <Link
+                  to={ route }
+                  className={ activeClass }
+                >{ text }</Link>
+              );
+            }
+          }
+    />
+  );
+}
+
 class App extends Component {
   render() {
     return (
       <div className="App">
-
         <header className="App-header">
           <nav>
            <ul>
-             <li><Link to='/'>Home</Link></li>
-             <li><Link to='/about'>About</Link></li>
-             <li><Link to='/pricing'>Pricing</Link></li>
+             <li>{ renderLinkAndHightlightActive('/', 'Home') }</li>
+             <li>{ renderLinkAndHightlightActive('/about', 'About') }</li>
+             <li>{ renderLinkAndHightlightActive('/pricing', 'Pricing') }</li>
            </ul>
           </nav>
         </header>
@@ -25,7 +46,8 @@ class App extends Component {
 
         <Switch>
           <Route exact path='/' component={ Home } />
-          <Route path='/about' component={ About } />
+          <Route path='/about' render={ () =>
+                  <About objective="win" /> } />
           <Route path='/pricing' component={ Pricing } />
         </Switch>
 

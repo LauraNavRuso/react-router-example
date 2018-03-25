@@ -3,7 +3,7 @@ import React from 'react';
 class About extends React.Component {
   render() {
     return (
-      <p>Sobre mí</p>
+      <p>El objetivo de esta web es { this.props.objective }</p>
     );
   }
 }
